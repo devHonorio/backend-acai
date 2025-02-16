@@ -13,3 +13,11 @@ model Cup {
 
   @@map("cups")
 }
+
+model User {
+  id    String @id @default(uuid())
+  name  String
+  phone String @unique
+
+  @@map("users")
+}
