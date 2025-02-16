@@ -14,6 +14,10 @@ const createCups = async () => {
 
   return cups;
 };
-const orchestrator = { cleanCups, createCups };
+
+const cleanUsers = async () => {
+  await prisma.user.deleteMany();
+};
+const orchestrator = { cleanCups, createCups, cleanUsers };
 
 export default orchestrator;
