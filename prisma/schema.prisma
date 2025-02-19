@@ -15,9 +15,11 @@ model Cup {
 }
 
 model User {
-  id    String @id @default(uuid())
-  name  String
-  phone String @unique
+  id       String   @id @default(uuid())
+  name     String
+  phone    String   @unique
+  password String
+  rulles   String[]
 
   @@map("users")
 }
