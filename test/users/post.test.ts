@@ -6,10 +6,20 @@ import api from 'test/api';
 import orchestrator from 'test/orchestrator';
 
 describe('POST /users', () => {
-  describe('Anonymouns user', () => {
-    test('creating user', async () => {
-      const user = { id: '1', name: 'vanusa pereira', phone: '46999222970' };
-      await api.post('/users').send(user).expect(201).expect(user);
+  describe('Admin user', () => {
+    test('creating user admin', async () => {
+      const user = {
+        id: '1',
+        name: 'vanusa pereira',
+        phone: '46999222970',
+        rulles: ['read:users', 'write:users'],
+      };
+      await api
+        .post('/users')
+        .auth('', { type: 'bearer' })
+        .send(user)
+        .expect(201)
+        .expect(user);
     });
 
     test('creating user with length phone invalid', async () => {
@@ -49,6 +59,20 @@ describe('POST /users', () => {
         message: 'Nome deve conter ao menos 2 letras e não deve ser abreviado.',
         error: 'Name Invalid',
         statusCode: 400,
+      });
+    });
+  });
+  describe('Anonymouns user', () => {
+    test('creating user', async () => {
+      const user = {
+        id: '1',
+        name: 'vanusa pereira',
+        phone: '46999222970',
+      };
+
+      await api.post('/users').send(user).expect(401).expect({
+        error: 'Não Autorizado',
+        message: 'Para criar usuário deve ter a rulle "write:user"',
       });
     });
   });

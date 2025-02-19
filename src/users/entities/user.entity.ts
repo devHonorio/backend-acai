@@ -9,10 +9,12 @@ export class User implements CreateUserDto {
   readonly id?: string;
   readonly name: string;
   readonly phone: string;
+  readonly password: string;
   constructor(data: CreateUserDto) {
     this.id = `${data.id}`;
     this.name = this.nameValidator(data.name);
     this.phone = this.phoneValidator(data.phone);
+    this.password = data.password;
   }
 
   private phoneValidator(phone = '') {
@@ -61,6 +63,7 @@ export class User implements CreateUserDto {
       id: this.id,
       name: this.name,
       phone: this.phone,
+      password: this.password,
     };
   }
 }
