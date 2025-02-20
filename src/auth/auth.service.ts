@@ -8,6 +8,7 @@ import { signInDto } from './dto/signIn.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Payload } from './entities/Payload';
 import { compare } from 'bcrypt';
+import { Rulles } from 'src/rulles/rulles';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +30,7 @@ export class AuthService {
       sub: user.id,
       username: user.name,
       phone: user.phone,
+      rulles: user.rulles as Rulles[],
     };
 
     return { access_token: await this.jwtService.signAsync(payload) };
