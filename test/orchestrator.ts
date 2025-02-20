@@ -20,16 +20,35 @@ const cleanUsers = async () => {
   await prisma.user.deleteMany();
 };
 
-const createUser = async () => {
+const createUserAdmin = async () => {
   await prisma.user.create({
     data: {
       id: '1',
       name: 'Vanusa Godinho',
       password: await hash('1234', 8),
       phone: '44998692094',
+      rulles: ['write:users', 'read:users'],
     },
   });
 };
-const orchestrator = { cleanCups, createCups, cleanUsers, createUser };
+
+const createUserNotAutorized = async () => {
+  await prisma.user.create({
+    data: {
+      id: '11',
+      name: 'josé honorio',
+      password: await hash('1234', 8),
+      phone: '99999999999',
+      rulles: [],
+    },
+  });
+};
+const orchestrator = {
+  cleanCups,
+  createCups,
+  cleanUsers,
+  createUserAdmin,
+  createUserNotAutorized,
+};
 
 export default orchestrator;

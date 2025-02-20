@@ -8,14 +8,22 @@ export default api;
 const responseBodySchema = z.object({
   access_token: z.string(),
 });
-const getToken = async () => {
+const getTokenAdmin = async () => {
   const response = await api
     .post('/auth/login')
     .send({ phone: '44998692094', password: '1234' });
-
   const { access_token } = responseBodySchema.parse(response.body);
 
   return access_token;
 };
 
-export { getToken };
+const getTokenUser = async () => {
+  const response = await api
+    .post('/auth/login')
+    .send({ phone: '99999999999', password: '1234' });
+  const { access_token } = responseBodySchema.parse(response.body);
+
+  return access_token;
+};
+
+export { getTokenAdmin, getTokenUser };

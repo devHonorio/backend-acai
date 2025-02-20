@@ -5,4 +5,5 @@ export class CreateUserDto implements Prisma.UserCreateInput {
   name: string;
   phone: string;
   password: string;
+  rulles?: string[];
 }
